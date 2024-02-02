@@ -2,24 +2,56 @@ package materials;
 
 import main.Constants;
 import main.World;
+import org.json.JSONArray;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public abstract class Grain {
+public class Grain {
 
     public int x, y;
+    public String name;
+    ArrayList<Object> movement = new ArrayList<Object>();
     public int mass = 0;
-    public boolean permanent = false;
     public Color color;
+
+    public boolean permanent = false;
+    public boolean empty = false;
+    public int fireStrength = 0;
+    public void setFireStrength(int fireStrength) {
+        this.fireStrength = Math.max(fireStrength, 0);
+    }
+
+    public int fireResistance = 0;
+    public void setFireResistance(int fireResistance) {
+        this.fireResistance = fireResistance;
+        if (this.fireResistance != 0) {
+            ignitable = true;
+        }
+    }
+    public int corrosionStrength = 0;
+    public void setCorrosionStrength(int corrosionStrength) {
+        this.corrosionStrength = Math.max(corrosionStrength, 0);
+    }
+    public int corrosionResistance = 0;
+    public void setCorrosionResistance(int corrosionResistance) {
+        this.corrosionResistance = Math.max(corrosionResistance, 0);
+        if (this.corrosionResistance != 0) {
+            corrodible = true;
+        }
+    }
     public boolean ignitable = false;
     public boolean ignited = false;
+    public boolean corrodible = false;
     public World world;
     public int timeAlive = 0;
-    public int lifeSpan = -1;
+    public double lifeSpan = -1;
 
     public boolean isMovingLeft = false;
-    public Materials ignitionProduct;
+    public JSONArray ignitionProduct;
+
+    public JSONArray corrosionProduct;
 
     public Grain(int x, int y, Color color) {
         this.x = x;
@@ -31,13 +63,51 @@ public abstract class Grain {
         }
     }
 
+    public Grain(int x, int y, World world) {
+        this.x = x;
+        this.y = y;
+        this.world = world;
+        this.color = Color.black;
+        this.materialType = MaterialManager.empty;
+
+        if (Math.round(Math.random()) == 0) {
+            isMovingLeft = true;
+        }
+    }
+
     public void draw(Graphics2D g2) {
-        g2.setColor(color);
-        g2.fillRect(x, y, Constants.CELL_SIZE, Constants.CELL_SIZE);
+        if (!Objects.equals(materialType, MaterialManager.empty)) {
+            g2.setColor(color);
+            g2.fillRect(x, y, Constants.CELL_SIZE, Constants.CELL_SIZE);
+        }
     }
 
     public void update() {
+        for (Object m : movement) {
+            String move = m.toString();
+            if (move.equals(MaterialMovement.powder.name())) {
+                Powder();
+            }
+            if (move.equals(MaterialMovement.liquid.name())) {
+                Liquid();
+            }
+            if (move.equals(MaterialMovement.gas.name())) {
+                Gas();
+            }
+            if (move.equals(MaterialMovement.random.name())) {
+                RandomMove();
+            }
+        }
+    }
 
+    public String materialType;
+
+    public String GetMaterialType() {
+        return materialType;
+    }
+
+    public boolean HasProperty(MaterialProperties property) {
+        return false;
     }
 
     public void CheckMassPriority() {
@@ -45,7 +115,7 @@ public abstract class Grain {
             int[] index1 = world.GetIndexFromPos(x, y);
             Grain currentGrain = world.grid[index1[0]][index1[1]].grain;
 
-            if (currentGrain != null && world.CheckIfPosInBounds(x, y)) {
+            if (!Objects.equals(currentGrain.materialType, MaterialManager.empty) && world.CheckIfPosInBounds(x, y)) {
                 // Check down
                 if (world.CheckIfPosInBounds(x, y + Constants.CELL_SIZE)) {
                     int[] index2 = world.GetIndexFromPos(x, y + Constants.CELL_SIZE);
@@ -83,7 +153,7 @@ public abstract class Grain {
         return world.CheckIfPosCanMove(x + Constants.CELL_SIZE, y - Constants.CELL_SIZE);
     }
 
-    public ArrayList<Grain> CheckAllForType(Grain type) {
+    public ArrayList<Grain> CheckAllForType(String targetMaterialType) {
         int[] index = world.GetIndexFromPos(x, y);
 
         ArrayList<Grain> objects = new ArrayList<>();
@@ -91,8 +161,28 @@ public abstract class Grain {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (world.CheckIfIndexInBounds(index[0] + i, index[1] + j)) {
-                    if (world.grid[index[0] + i][index[1] + j].grain != null){
-                        if (world.grid[index[0] + i][index[1] + j].grain.getClass() == type.getClass()) {
+                    if (Objects.equals(world.grid[index[0] + i][index[1] + j].grain.GetMaterialType(), MaterialManager.empty)){
+                        if (Objects.equals(world.grid[index[0] + i][index[1] + j].grain.GetMaterialType(), targetMaterialType)) {
+                            objects.add(world.grid[index[0] + i][index[1] + j].grain);
+                        }
+                    }
+                }
+            }
+        }
+
+        return objects;
+    }
+
+    public ArrayList<Grain> CheckAllForProperties(MaterialProperties targetProperty) {
+        int[] index = world.GetIndexFromPos(x, y);
+
+        ArrayList<Grain> objects = new ArrayList<>();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (world.CheckIfIndexInBounds(index[0] + i, index[1] + j)) {
+                    if (Objects.equals(world.grid[index[0] + i][index[1] + j].grain.GetMaterialType(), MaterialManager.empty)){
+                        if (world.grid[index[0] + i][index[1] + j].grain.HasProperty(targetProperty)) {
                             objects.add(world.grid[index[0] + i][index[1] + j].grain);
                         }
                     }
@@ -109,15 +199,15 @@ public abstract class Grain {
         }
     }
 
-    public void AddTime(Materials[] deathMats) {
+    public void AddTime(JSONArray deathMaterials) {
         timeAlive += 1;
 
         if (lifeSpan != -1) {
             if (timeAlive >= lifeSpan) {
                 Kill();
                 int[] index = world.GetIndexFromPos(x, y);
-                for (Materials deathMat: deathMats) {
-                    world.addMaterial(deathMat, index[0], index[1]);
+                for (Object deathMat: deathMaterials) {
+                    world.addMaterial(deathMat.toString(), index[0], index[1], world);
                     world.grid[index[0]][index[1]].grain.update();
                 }
             }
@@ -130,13 +220,13 @@ public abstract class Grain {
 
     public void Burn() {
         if (!ignited) {
-            if (!CheckAllForType(new Fire(0, 0)).isEmpty()) {
+            if (!CheckAllForProperties(MaterialProperties.fire_strength).isEmpty()) {
                 Ignite();
                 return;
             }
-            for (materials.Grain burnable : world.burnables){
-                ArrayList<materials.Grain> types = CheckAllForType(burnable);
-                for (materials.Grain grain : types) {
+            for (String burnable : world.burnables){
+                ArrayList<Grain> burnableGrains = CheckAllForType(burnable);
+                for (Grain grain : burnableGrains) {
                     if (grain.ignited) {
                         Ignite();
                         break;
@@ -144,7 +234,7 @@ public abstract class Grain {
                 }
             }
 
-        }else {
+        } else {
             AddTime(ignitionProduct);
         }
     }
@@ -152,20 +242,15 @@ public abstract class Grain {
     public void Corrode() {
         ArrayList<materials.Grain> surroundings = world.GetAll(x, y);
         for (materials.Grain grain : surroundings) {
-            if (!In(grain, world.nonCorrodibles)) {
+            if (!grainInList(grain, world.nonCorrodibles)) {
                 grain.lifeSpan = 3 * Constants.TARGET_TICKS;
-                grain.AddTime(Materials {});
+                grain.AddTime(corrosionProduct);
             }
         }
     }
 
-    public boolean In(Grain grain, Grain[] list) {
-        for (Grain g : list) {
-            if (g.getClass() == grain.getClass()) {
-                return true;
-            }
-        }
-        return false;
+    public boolean grainInList(Grain grain, ArrayList<String> materialList) {
+        return materialList.contains(grain.materialType);
     }
 
     public void Powder() {
@@ -270,14 +355,61 @@ public abstract class Grain {
         }
     }
 
+    public void RandomMove() {
+        int movement = (int) (Math.random() * 8);
+
+        switch (movement) {
+            case 0 -> {
+                if (CheckDown()) {
+                    world.MoveGrain(this, new int[]{0, 1});
+                }
+            }
+            case 1 -> {
+                if (CheckLeftDown()) {
+                    world.MoveGrain(this, new int[]{-1, 1});
+                }
+            }
+            case 2 -> {
+                if (CheckRightDown()) {
+                    world.MoveGrain(this, new int[]{1, 1});
+                }
+            }
+            case 3 -> {
+                if (CheckLeft()) {
+                    world.MoveGrain(this, new int[]{-1, 0});
+                }
+            }
+            case 4 -> {
+                if (CheckRight()) {
+                    world.MoveGrain(this, new int[]{1, 0});
+                }
+            }
+            case 5 -> {
+                if (CheckUp()) {
+                    world.MoveGrain(this, new int[]{0, -1});
+                }
+            }
+            case 6 -> {
+                if (CheckLeftUp()) {
+                    world.MoveGrain(this, new int[]{-1, -1});
+                }
+            }
+            case 7 -> {
+                if (CheckRightUp()) {
+                    world.MoveGrain(this, new int[]{1, -1});
+                }
+            }
+        }
+    }
+
     public boolean CompareMass(int[] index1, int[] index2) {
         if (world.CheckIfIndexInBounds(index1[0], index1[1])) {
             if (world.CheckIfIndexInBounds(index2[0], index2[1])) {
                 Grain current_grain = world.grid[index1[0]][index1[1]].grain;
                 Grain second_grain = world.grid[index2[0]][index2[1]].grain;
 
-                if (current_grain != null && second_grain != null) {
-                    if (current_grain.getClass() != second_grain.getClass()) {
+                if (!Objects.equals(current_grain.materialType, MaterialManager.empty) && !Objects.equals(second_grain.materialType, MaterialManager.empty)) {
+                    if (!Objects.equals(current_grain.materialType, second_grain.materialType)) {
                         if (!current_grain.permanent && !second_grain.permanent) {
                             if (current_grain.mass != 0 && second_grain.mass != 0) {
                                 return current_grain.mass > second_grain.mass;

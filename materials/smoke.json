@@ -1,0 +1,10 @@
+{
+	"name": "Smoke",
+	"material": "smoke",
+	"movement": [
+		"gas"
+	],
+	"mass": -3,
+	"color": "64,64,64",
+	"life_span": 5
+}

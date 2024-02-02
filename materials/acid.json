@@ -1,0 +1,9 @@
+{
+	"name": "Fluoroantimonic acid",
+	"updates": [
+		"liquid"
+	],
+	"mass": 4,
+	"color": "27, 166, 51",
+	"corrosion_strength": 10
+}

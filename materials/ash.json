@@ -1,0 +1,9 @@
+{
+	"name": "Ash",
+	"material": "ash",
+	"movement": [
+		"powder"
+	],
+	"mass": 10,
+	"color": "59, 54, 54"
+}

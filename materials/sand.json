@@ -1,0 +1,9 @@
+{
+	"name": "Sand",
+	"material": "sand",
+	"movement": [
+		"powder"
+	],
+	"mass": 10,
+	"color": "255,255,0"
+}

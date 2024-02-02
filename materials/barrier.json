@@ -1,0 +1,8 @@
+{
+	"name": "Barrier",
+	"material": "barrier",
+	"movement": [],
+	"mass": 0,
+	"color": "128,128,128",
+	"displaceable": false
+}

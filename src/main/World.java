@@ -1,13 +1,10 @@
 package main;
 
-import main.Colors;
-import main.Constants;
-import materials.Grain;
-import materials.Materials;
-import materials.Sand;
+import materials.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class World {
 
@@ -18,8 +15,9 @@ public class World {
     public Cell[][] grid;
     public int[][][] grid_indexes;
 
-    public Grain[] burnables;
-    public Grain[] nonCorrodibles;
+    public final ArrayList<String> burnables = new ArrayList<String>();
+
+    public final ArrayList<String> nonCorrodibles = new ArrayList<String>();
 
     private int updateLoops = 0;
 
@@ -40,19 +38,6 @@ public class World {
             }
         }
 
-        // todo Change this to be an enum thing??
-        this.burnables = new Grain[]{
-//                new Wood(0, 0),
-//                new Oil(0, 0),
-//                new Wax(0, 0)
-        };
-        this.nonCorrodibles = new Grain[]{
-//                new Smoke(0, 0),
-//                new Steam(0, 0),
-//                new Acid(0, 0),
-//                new Barrier(0, 0)
-        };
-
         CreateGrid();
     }
 
@@ -61,7 +46,7 @@ public class World {
             for (int y = 0; y < rect.height / size; y++) {
                 int[] pos = GetPosFromIndex(x, y);
 
-                Cell c = new Cell(pos, size);
+                Cell c = new Cell(pos, size, this);
                 grid[x][y] = c;
             }
         }
@@ -72,49 +57,32 @@ public class World {
         // Border Color
         g2.setColor(Colors.BORDER);
         // Draw Border
-        g2.drawLine(rect.x, rect.y, rect.x + rect.width, rect.y);
-        g2.drawLine(rect.x + rect.width, rect.y, rect.x + rect.width, rect.y + rect.height);
-        g2.drawLine(rect.x + rect.width, rect.y + rect.height, rect.x, rect.y + rect.height);
-        g2.drawLine(rect.x, rect.y + rect.height, rect.x, rect.y);
-
-        // todo Test this instead
-        // g2.drawRect(rect.x, rect.y, rect.width, rect.height);
+         g2.drawRect(rect.x, rect.y, rect.width, rect.height);
 
         for (int i = 0; i < rect.width / size; i++) {
             for (int j = 0; j < rect.height / size; j++) {
-                if (grid[i][j].grain != null) {
+                if (!Objects.equals(grid[i][j].grain.GetMaterialType(), MaterialManager.empty)) {
                     grid[i][j].grain.draw(g2);
                 }
             }
         }
     }
     
-    public void addMaterial(Materials material, int i, int j) {
+    public void addMaterial(String material, int i, int j, World world) {
         int[] pos = GetPosFromIndex(i, j);
         if (CheckIfPosInBounds(pos[0], pos[1])) {
-            if (grid[i][j].grain == null) {
-                switch (material) {
-                    case SAND -> grid[i][j].grain = new Sand(pos[0], pos[1]);
-//                    case Materials.WATER -> grid[i][j].grain = new Water(pos[0], pos[1]);
-//                    case Materials.WOOD -> grid[i][j].grain = new Wood(pos[0], pos[1]);
-//                    case Materials.FIRE -> grid[i][j].grain = new Fire(pos[0], pos[1]);
-//                    case Materials.ASH -> grid[i][j].grain = new Ash(pos[0], pos[1]);
-//                    case Materials.SMOKE -> grid[i][j].grain = new Smoke(pos[0], pos[1]);
-//                    case Materials.OIL -> grid[i][j].grain = new Oil(pos[0], pos[1]);
-//                    case Materials.STEAM -> grid[i][j].grain = new Steam(pos[0], pos[1]);
-//                    case Materials.ACID -> grid[i][j].grain = new Acid(pos[0], pos[1]);
-//                    case Materials.WAX -> grid[i][j].grain = new Wax(pos[0], pos[1]);
-//                    case Materials.BARRIER -> grid[i][j].grain = new Barrier(pos[0], pos[1]);
-                }
-                if (grid[i][j].grain != null) {
-                    grid[i][j].grain.world = this;
-                }
-            }
-            if (material == Materials.ERASE) {
-                Erase(pos[0], pos[1]);
+            grid[i][j].grain = MaterialManager.GetMaterial(material, pos[0], pos[1], world);
+
+            if (!Objects.equals(grid[i][j].grain.GetMaterialType(), MaterialManager.empty)) {
+                grid[i][j].grain.world = this;
             }
         }
+        if (material.equals(MaterialManager.erase))
+        {
+            Erase(pos[0], pos[1]);
+        }
     }
+
     
     public void update() {
         if (updateLoops >= 10) {
@@ -135,7 +103,7 @@ public class World {
         for (int i = 0; i < rect.width / size; i++) {
             for (int j = 0; j < rect.height / size; j++) {
                 int[] index = grid_indexes[i][j];
-                if (grid[index[0]][index[1]].grain != null) {
+                if (!Objects.equals(grid[index[0]][index[1]].grain.materialType, MaterialManager.empty)) {
                     Grain grain = grid[index[0]][index[1]].grain;
                     grain.update();
                     grain.CheckMassPriority();
@@ -161,7 +129,7 @@ public class World {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                  if (CheckIfIndexInBounds(index[0] + i, index[1] + j)) {
-                    if (grid[index[0] + i][index[1] + j].grain != null) {
+                    if (!Objects.equals(grid[index[0] + i][index[1] + j].grain.materialType, MaterialManager.empty)) {
                         surroundings.add(grid[index[0] + i][index[1] + j].grain);
                     }
                 }
@@ -182,7 +150,7 @@ public class World {
     public boolean CheckIfPosCanMove(int x, int y) {
         int[] index = GetIndexFromPos(x, y);
         if (CheckIfPosInBounds(x, y)) {
-            return grid[index[0]][index[1]].grain == null;
+            return Objects.equals(grid[index[0]][index[1]].grain.materialType, MaterialManager.empty);
         }
         return false;
     }
@@ -202,9 +170,10 @@ public class World {
         int i2 = index[0];
         int j2 = index[1];
 
-        if (grid[i2][j2].grain == null) {
+        if (Objects.equals(grid[i2][j2].grain.materialType, MaterialManager.empty)) {
+            Grain empty = grid[i2][j2].grain;
             grid[i2][j2].grain = grid[i1][j1].grain;
-            grid[i1][j1].grain = null;
+            grid[i1][j1].grain = empty;
 
             grain.x += (Constants.CELL_SIZE * direction[0]);
             grain.y += (Constants.CELL_SIZE * direction[1]);
@@ -229,6 +198,6 @@ public class World {
             return;
         }
         int[] index = GetIndexFromPos(x, y);
-        grid[index[0]][index[1]].grain = null;
+        grid[index[0]][index[1]].grain = MaterialManager.empty(x, y, this);
     }
 }

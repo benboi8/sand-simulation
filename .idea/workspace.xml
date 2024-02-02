@@ -4,32 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8878e27f-c19b-46e4-a45f-8c7def589b63" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SandSimulation.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Cell.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Colors.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/KeyListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Mouse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Time.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Window.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/World.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/materials/Grain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/materials/Materials.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/materials/Sand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/materials/Water.java" afterDir="false" />
+    <list default="true" id="8878e27f-c19b-46e4-a45f-8c7def589b63" name="Changes" comment="First Commit">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/json_20231013.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/acid.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/ash.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/barrier.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/fire.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/oil.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/sand.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/smoke.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/steam.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/water.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/wax.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/materials/wood.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Button.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Gui.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/MouseHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/fileOperations/FileReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/materials/MaterialManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/materials/MaterialMovement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SandSimulation.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SandSimulation.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Colors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Colors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/KeyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/KeyListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Mouse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/materials/Grain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/materials/Grain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/materials/Materials.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/materials/MaterialProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/materials/Sand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/materials/Water.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,9 +56,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2bldZ2x2nodJXPSOtOtgjgyDhji" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -54,13 +69,19 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true"
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/JSON/json-20231013.jar",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.build"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -88,6 +109,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-corretto-17.0.9-4caba194b151-107bc6b7" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -97,6 +125,30 @@
       <option name="presentableId" value="Default" />
       <updated>1706793652265</updated>
     </task>
+    <task id="LOCAL-00001" summary="First Commit">
+      <option name="closed" value="true" />
+      <created>1706801687968</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706801687968</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="First Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="First Commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="7" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

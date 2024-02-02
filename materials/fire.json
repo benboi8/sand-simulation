@@ -1,0 +1,14 @@
+{
+	"name": "Fire",
+	"material": "fire",
+	"movement": [
+		"random"
+	],
+	"mass": 0,
+	"color": "255,0,0",
+	"life_span": 0.1,
+	"ignitionProducts": [
+		"smoke"
+	],
+	"fire_strength": 10,
+}

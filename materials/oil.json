@@ -1,0 +1,14 @@
+{
+	"name": "Petrol",
+	"material": "oil",
+	"movement": [
+		"liquid"
+	],
+	"mass": 5,
+	"color": "30, 31, 1",
+	"life_span": 10,
+	"ignition_products": [
+		"smoke"
+	],
+	"fire_resistance": 3
+}

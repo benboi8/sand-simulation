@@ -1,0 +1,14 @@
+{
+	"name": "Water",
+	"material": "water",
+	"movement": [
+		"liquid"
+	],
+	"mass": 6,
+	"color": "0,0,255",
+	
+	"fire_resistance": 1,
+	"ignition_products": [
+		"steam"
+	]
+}

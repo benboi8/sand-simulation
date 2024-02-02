@@ -12,6 +12,8 @@ public class Window extends JFrame implements Runnable {
 
     public Mouse mouse;
 
+    public Gui gui;
+
     public KeyListener keyListener = new KeyListener();
 
     public double fps;
@@ -46,6 +48,9 @@ public class Window extends JFrame implements Runnable {
                 Constants.HEIGHT() - 200 - (int)Constants.INSET_BOTTOM - (int)Constants.INSET_TOP),
                 Constants.CELL_SIZE,
                 TICKS_PER_SECOND);
+
+        Gui.world = world;
+        gui = Gui.getInstance();
 
         mouse = new Mouse(world, keyListener);
         addMouseListener(mouse);
@@ -82,6 +87,12 @@ public class Window extends JFrame implements Runnable {
         // show the fps
         g.setColor(Colors.TEXT);
         g.drawString(Math.round(fps) + " fps", 100, 100);
+
+        // draw gui
+        gui.draw(g);
+
+        // draw material
+        g.drawString(mouse.material.toString(), Constants.WIDTH() / 2, 100);
 
         // draw frame
         g2.drawImage(dbImage, 0, 0, this);

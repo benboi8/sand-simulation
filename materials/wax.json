@@ -1,0 +1,10 @@
+{
+	"name": "Wax",
+	"material": "wax",
+	"movement": [],
+	"mass": 0,
+	"color": "255,255,255",
+	"displacable": false,
+	"life_span": 200,
+	"fire_resistance": 1
+}

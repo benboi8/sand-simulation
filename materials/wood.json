@@ -1,0 +1,13 @@
+{
+	"name": "Wood",
+	"material": "wood",
+	"updates": [],
+	"mass": 0,
+	"color": "56,27,8",
+	"displaceable": false,
+	"life_span": 6,
+	"ignition_products": [
+		"ash", 
+		"smoke"
+	]
+}

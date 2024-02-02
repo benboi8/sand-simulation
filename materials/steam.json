@@ -1,0 +1,11 @@
+{
+	"name": "Steam",
+	"material": "steam",
+	"movement": [
+		"gas"
+	],
+	"mass": -3,
+	"color": "192,192,192",
+	"life_span": 8
+	
+}
