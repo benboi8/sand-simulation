@@ -71,9 +71,8 @@ public class World {
     public void addMaterial(String material, int i, int j, World world) {
         int[] pos = GetPosFromIndex(i, j);
         if (CheckIfPosInBounds(pos[0], pos[1])) {
-            grid[i][j].grain = MaterialManager.GetMaterial(material, pos[0], pos[1], world);
-
-            if (!Objects.equals(grid[i][j].grain.GetMaterialType(), MaterialManager.empty)) {
+            if (Objects.equals(grid[i][j].grain.materialType, MaterialManager.empty)) {
+                grid[i][j].grain = MaterialManager.GetMaterial(material, pos[0], pos[1], world);
                 grid[i][j].grain.world = this;
             }
         }

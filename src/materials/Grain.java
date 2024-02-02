@@ -75,6 +75,13 @@ public class Grain {
         }
     }
 
+    public static Grain Empty(int x, int y, World world) {
+        Grain g = new Grain(x, y, world);
+        g.name = MaterialManager.empty;
+        g.materialType = MaterialManager.empty;
+        return g;
+    }
+
     public void draw(Graphics2D g2) {
         if (!Objects.equals(materialType, MaterialManager.empty)) {
             g2.setColor(color);
@@ -98,6 +105,10 @@ public class Grain {
                 RandomMove();
             }
         }
+
+        if (fireResistance > 0) {
+            Burn();
+        }
     }
 
     public String materialType;
@@ -107,6 +118,13 @@ public class Grain {
     }
 
     public boolean HasProperty(MaterialProperties property) {
+        if (property == MaterialProperties.fire_resistance) {
+            return fireResistance > 0;
+        }
+        else if (property == MaterialProperties.fire_strength) {
+            return fireStrength > 0;
+        }
+
         return false;
     }
 
@@ -181,7 +199,7 @@ public class Grain {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (world.CheckIfIndexInBounds(index[0] + i, index[1] + j)) {
-                    if (Objects.equals(world.grid[index[0] + i][index[1] + j].grain.GetMaterialType(), MaterialManager.empty)){
+                    if (!Objects.equals(world.grid[index[0] + i][index[1] + j].grain.GetMaterialType(), MaterialManager.empty)){
                         if (world.grid[index[0] + i][index[1] + j].grain.HasProperty(targetProperty)) {
                             objects.add(world.grid[index[0] + i][index[1] + j].grain);
                         }

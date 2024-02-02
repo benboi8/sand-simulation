@@ -1,9 +1,10 @@
 package main;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import materials.MaterialManager;
 
-public class GuiButton extends MouseHandler {
+import java.awt.*;
+
+public class GuiButton {
     World world;
 
     Color borderColor = Colors.BUTTON_BORDER;
@@ -14,36 +15,20 @@ public class GuiButton extends MouseHandler {
 
     String text;
 
+    MouseHandler mouseHandler;
+
     int borderSize = 2;
 
-    GuiButton(World world, Rectangle rect, String text) {
-        this.rect = rect;
-        this.text = text;
-        Gui.getInstance().buttons.add(this);
-        Gui.window.addMouseListener(this);
-    }
+    String material;
 
-    GuiButton(World world, Rectangle rect, String text, Color textColor, Color borderColor, Color backgroundColor) {
-        this.rect = rect;
-        this.text = text;
-        this.textColor = textColor;
-        this.borderColor = borderColor;
-        this.backgroundColor = backgroundColor;
-        Gui.getInstance().buttons.add(this);
-    }
-
-    public GuiButton(Rectangle rect, String text) {
-        this.rect = rect;
-        this.text = text;
-        this.world = Gui.world;
-        Gui.getInstance().buttons.add(this);
-    }
-
-    public GuiButton(Rectangle rect, String text, Color  backgroundColor) {
+    public GuiButton(Rectangle rect, String text, Color  backgroundColor, String material, MouseHandler mouseHandler) {
         this.rect = rect;
         this.text = text;
         this.backgroundColor = backgroundColor;
+        this.material = material;
         this.world = Gui.world;
+        this.mouseHandler = mouseHandler;
+        Gui.getInstance().buttons.add(this);
     }
 
     void draw(Graphics2D g2) {
@@ -54,42 +39,22 @@ public class GuiButton extends MouseHandler {
         g2.drawRect(rect.x, rect.y, rect.width, rect.height);
 
         g2.setColor(textColor);
-        if (text.length() >= 12) {
-            text = text.substring(0, 10) + "\n" + text.substring(10);
-        }
         g2.drawString(text, rect.x + 4, rect.y + rect.height / 2);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // click button
-        System.out.println("1");
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            System.out.println("2");
-            int[] pos = getMousePos(world);
-            if (rect.contains(pos[0], pos[1])) {
-                System.out.println("3");
+    boolean clicked = false;
+
+    void update() {
+        if (mouseHandler.mouseDown) {
+            int[] mousePos = mouseHandler.getMousePos();
+            if (rect.contains(mousePos[0], mousePos[1])) {
+                if (!clicked) {
+                    clicked = true;
+                    MaterialManager.selectedMaterial = material;
+                }
             }
+        } else {
+            clicked = false;
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // start hold
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // release hold
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // change draw style
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // change draw style
     }
 }

@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8878e27f-c19b-46e4-a45f-8c7def589b63" name="Changes" comment="Changed materials to use json">
-      <change afterPath="$PROJECT_DIR$/src/materials/MaterialPropertiesSerial.java" afterDir="false" />
+    <list default="true" id="8878e27f-c19b-46e4-a45f-8c7def589b63" name="Changes" comment="Fixed problems with json materials">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/materials/acid.json" beforeDir="false" afterPath="$PROJECT_DIR$/materials/acid.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/materials/wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/materials/wood.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GuiButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Gui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GuiButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GuiButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Mouse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/MouseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/MouseHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/fileOperations/FileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/fileOperations/FileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/materials/Grain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/materials/Grain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/materials/MaterialManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/materials/MaterialManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,6 +27,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -121,14 +119,23 @@
       <option name="project" value="LOCAL" />
       <updated>1706883505344</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fixed problems with json materials">
+      <option name="closed" value="true" />
+      <created>1706889824780</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706889824780</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="First Commit" />
     <MESSAGE value="Changed materials to use json" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed materials to use json" />
+    <MESSAGE value="Fixed problems with json materials" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed problems with json materials" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,9 +1,6 @@
 package materials;
 
-import main.Colors;
-import main.Constants;
-import main.GuiButton;
-import main.World;
+import main.*;
 import main.fileOperations.FileReader;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,16 +11,19 @@ import java.util.Hashtable;
 
 public class MaterialManager {
     public static final String materialFolder = "materials/";
+    public static MouseHandler mouseHandler;
 
     public static Hashtable<String, MaterialPropertiesSerial> materials = new Hashtable<String, MaterialPropertiesSerial>();
 
     public static Grain empty(int x, int y, World world) {
-        return new Grain(x, y, world);
+        return Grain.Empty(x, y, world);
     }
 
     public static String erase = "erase";
 
     public static String empty = "empty";
+
+    public static String selectedMaterial = empty;
 
     public static Grain GetMaterial(String material, int x, int y, World world) {
         return CreateMaterial(material, x, y, world);
@@ -83,7 +83,7 @@ public class MaterialManager {
         }
 
         materials.put(
-            name.toLowerCase(),
+            materialType.toLowerCase(),
             new MaterialPropertiesSerial(
               name,
               movement,
@@ -99,11 +99,11 @@ public class MaterialManager {
               permanent
             )
         );
-        GuiButton button = new GuiButton(new Rectangle(15, 100 + (int) Constants.INSET_TOP + (55 * materials.size()), 85, 50), name, color);
+        GuiButton button = new GuiButton(new Rectangle(15, 100 + (int) Constants.INSET_TOP + (55 * materials.size()), 85, 50), name.substring(0, 1).toUpperCase() + name.substring(1), color, materialType.toLowerCase(), mouseHandler);
     }
 
     public static Grain CreateMaterial(String materialName, int x, int y, World world) {
-        if (!materialName.contains(materialName.toLowerCase())) {
+        if (materialName.toLowerCase().equals(empty)) {
             return empty(x, y, world);
         }
 

@@ -1,35 +1,34 @@
 package main;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import materials.MaterialManager;
 
-public class Mouse extends MouseHandler {
+import java.awt.*;
+
+public class Mouse {
     public int radius, size, x, y;
 
     public World world;
 
-    public String material;
-
     public KeyListener keyListener;
+    public MouseHandler mouseHandler;
 
-    public Mouse(World world, KeyListener keyListener) {
+    public Mouse(World world, KeyListener keyListener, MouseHandler mouseHandler) {
         this.radius = Constants.MOUSE_RADIUS;
         this.size = Constants.CELL_SIZE;
         this.world = world;
-        this.material = "sand";
         this.keyListener = keyListener;
+        this.mouseHandler = mouseHandler;
     }
 
     public Mouse(int radius, int size, World world, KeyListener keyListener) {
         this.radius = radius;
         this.size = size;
         this.world = world;
-        this.material = "sand";
         this.keyListener = keyListener;
     }
 
     public void update() {
-        int[] pos = getMousePos(world);
+        int[] pos = mouseHandler.getMousePos();
 
         x = pos[0];
         y = pos[1];
@@ -43,13 +42,13 @@ public class Mouse extends MouseHandler {
         g2.setColor(Colors.MOUSE_COLOR_BORDER);
         g2.drawOval(x - 1, y - 1, radius + 2, radius + 2);
 
-        if (mouseDown) {
+        if (mouseHandler.mouseDown) {
             addMaterial();
         }
     }
 
     public void addMaterial() {
-        int[] pos = getMousePos(world);
+        int[] pos = mouseHandler.getMousePos();
         x = pos[0];
         y = pos[1];
 
@@ -57,22 +56,8 @@ public class Mouse extends MouseHandler {
             for (int j = 0; j < radius / size; j++) {
                 int[] index = world.GetIndexFromPos(x, y);
 
-                world.addMaterial(material, i + index[0], j + index[1], world);
+                world.addMaterial(MaterialManager.selectedMaterial, i + index[0], j + index[1], world);
             }
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            mouseDown = true;
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            mouseDown = false;
         }
     }
 }

@@ -1,5 +1,7 @@
 package main;
 
+import materials.MaterialManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -53,13 +55,18 @@ public class Window extends JFrame implements Runnable {
         Gui.window = this;
         gui = Gui.getInstance();
 
-        mouse = new Mouse(world, keyListener);
-        addMouseListener(mouse);
+        MouseHandler mouseHandler = new MouseHandler(world);
+        addMouseListener(mouseHandler);
+
+        MaterialManager.mouseHandler = mouseHandler;
+
+        mouse = new Mouse(world, keyListener, mouseHandler);
     }
 
     public void update() {
         world.update();
         mouse.update();
+        gui.update();
     }
 
     public void draw() {
@@ -93,7 +100,7 @@ public class Window extends JFrame implements Runnable {
         gui.draw(g);
 
         // draw material
-        g.drawString(mouse.material.toString(), Constants.WIDTH() / 2, 100);
+        g.drawString(MaterialManager.selectedMaterial, Constants.WIDTH() / 2, 100);
 
         // draw frame
         g2.drawImage(dbImage, 0, 0, this);
