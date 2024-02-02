@@ -9,6 +9,7 @@ public class Gui {
     private static final Gui instance = new Gui();
 
     public static World world;
+    public static Window window;
 
     private Gui() {}
 
@@ -16,16 +17,16 @@ public class Gui {
         return instance;
     }
 
-    public ArrayList<Button> buttons = new ArrayList<Button>();
+    public ArrayList<GuiButton> buttons = new ArrayList<GuiButton>();
 
     public void CreateMaterialButtons() {
         for (MaterialProperties materials : MaterialProperties.values()) {
-            new Button(world, new Rectangle(10, 100, 90, 50), materials.name());
+            new GuiButton(world, new Rectangle(10, 100, 90, 50), materials.name());
         }
     }
 
     public void draw(Graphics2D g2) {
-        for (Button button : buttons) {
+        for (GuiButton button : buttons) {
             button.draw(g2);
         }
     }

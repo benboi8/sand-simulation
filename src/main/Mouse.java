@@ -1,7 +1,5 @@
 package main;
 
-import materials.MaterialManager;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
@@ -18,7 +16,7 @@ public class Mouse extends MouseHandler {
         this.radius = Constants.MOUSE_RADIUS;
         this.size = Constants.CELL_SIZE;
         this.world = world;
-        this.material = MaterialManager.erase;
+        this.material = "sand";
         this.keyListener = keyListener;
     }
 
@@ -26,7 +24,7 @@ public class Mouse extends MouseHandler {
         this.radius = radius;
         this.size = size;
         this.world = world;
-        this.material = MaterialManager.erase;
+        this.material = "sand";
         this.keyListener = keyListener;
     }
 
@@ -35,8 +33,6 @@ public class Mouse extends MouseHandler {
 
         x = pos[0];
         y = pos[1];
-
-        material = "sand";
     }
 
     public void draw(Graphics2D g2) {

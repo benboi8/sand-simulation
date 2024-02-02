@@ -50,6 +50,7 @@ public class Window extends JFrame implements Runnable {
                 TICKS_PER_SECOND);
 
         Gui.world = world;
+        Gui.window = this;
         gui = Gui.getInstance();
 
         mouse = new Mouse(world, keyListener);

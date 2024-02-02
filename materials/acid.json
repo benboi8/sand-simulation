@@ -1,6 +1,7 @@
 {
-	"name": "Fluoroantimonic acid",
-	"updates": [
+	"name": "acid",
+	"material": "acid",
+	"movement": [
 		"liquid"
 	],
 	"mass": 4,

@@ -57,7 +57,7 @@ public class World {
         // Border Color
         g2.setColor(Colors.BORDER);
         // Draw Border
-         g2.drawRect(rect.x, rect.y, rect.width, rect.height);
+        g2.drawRect(rect.x, rect.y, rect.width, rect.height);
 
         for (int i = 0; i < rect.width / size; i++) {
             for (int j = 0; j < rect.height / size; j++) {
@@ -83,7 +83,6 @@ public class World {
         }
     }
 
-    
     public void update() {
         if (updateLoops >= 10) {
             // randomly shuffle the array so that each element in the array contains a unique index that points to another random index
@@ -121,7 +120,6 @@ public class World {
         return new int[]{(x - rect.x) / size, (y - rect.y) / size};
     }
 
-    
     public ArrayList<Grain> GetAll(int x, int y) {
         ArrayList<Grain> surroundings = new ArrayList<>();
         int[] index = GetIndexFromPos(x, y);

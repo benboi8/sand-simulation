@@ -1,7 +1,7 @@
 {
 	"name": "Wood",
 	"material": "wood",
-	"updates": [],
+	"movement": [],
 	"mass": 0,
 	"color": "56,27,8",
 	"displaceable": false,
